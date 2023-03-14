@@ -63,11 +63,9 @@ const main = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const data = await newStudentUser.save();
 
-    console.log(data);
 
     return res.send(data);
   } catch (e: any) {
-    console.log(e);
     res.status(500).send({ message: e.message });
   }
 };

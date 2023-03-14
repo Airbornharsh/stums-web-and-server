@@ -38,7 +38,6 @@ const main = async (req: NextApiRequest, res: NextApiResponse) => {
 
     return res.send(data);
   } catch (e: any) {
-    console.log(e);
     res.status(500).send({ message: e.message });
   }
 };

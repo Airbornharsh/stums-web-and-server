@@ -40,11 +40,8 @@ const main = async (req: NextApiRequest, res: NextApiResponse) => {
       { password: hashPassword }
     );
 
-    console.log(AuthenticateDetail);
-
     return res.send(tempStudent);
   } catch (e: any) {
-    console.log(e);
     return res.status(500).send({ message: e.message });
   }
 };

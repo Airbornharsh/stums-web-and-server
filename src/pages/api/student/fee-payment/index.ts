@@ -5,7 +5,7 @@ import Razorpay from "razorpay";
 
 const main = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const year = req.body.year;
+    const year = parseInt(req.body.year);
     const DbModels = await DbConnect();
 
     const instance = await new Razorpay({
@@ -19,39 +19,46 @@ const main = async (req: NextApiRequest, res: NextApiResponse) => {
       AuthenticateDetail._id
     );
 
+    
     const tempFeePayments = userData.feePayments;
-
+    
     const feePaymentIds: any[] = [];
-    let maxFeePaymentsYear = 1;
-
+    let maxFeePaymentsYear = 0;
+    
     Object.keys(tempFeePayments).forEach((key) => {
       if (tempFeePayments[key]["id"] && tempFeePayments[key]["isPaid"]) {
         feePaymentIds.push(tempFeePayments[key]["id"]);
         maxFeePaymentsYear = parseInt(key);
       }
     });
-
+    
+    
     if (tempFeePayments[year]["isPaid"]) {
       return res.status(403).send({ message: "Payment is Already Done" });
     }
 
-    if (year - tempFeePayments !== 1) {
-      return res
-        .status(403)
-        .send({ message: `Pay for ${maxFeePaymentsYear + 1} Year` });
+    if (year - maxFeePaymentsYear !== 1) {
+      if (year == 1) {
+      } else {
+        return res
+          .status(403)
+          .send({ message: `Pay for ${maxFeePaymentsYear + 1} Year` });
+        }
     }
+    
 
+      
     const options = {
       amount: req.body.amount,
       currency: req.body.currency,
       notes: req.body.year,
     };
 
+    
     const data = { orderId: "", status: "", amount: 0 };
-
+    
     await instance.orders.create(options, function (err, order) {
       if (err) {
-        console.log(3);
         return err;
       }
 

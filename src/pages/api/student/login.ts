@@ -47,7 +47,6 @@ const main = async (req: NextApiRequest, res: NextApiResponse) => {
 
     res.send({ accessToken });
   } catch (e: any) {
-    console.log(e);
     res.status(500).send({ message: e.message });
   }
 };

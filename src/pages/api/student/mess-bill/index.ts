@@ -40,10 +40,13 @@ const main = async (req: NextApiRequest, res: NextApiResponse) => {
       return res.status(403).send({ message: "Payment is Already Done" });
     }
 
-    if (semester - maxMessBillSemester !== 1) {
-      return res
-        .status(403)
-        .send({ message: `Pay for ${maxMessBillSemester + 1} semester` });
+    if (parseInt(semester) - maxMessBillSemester !== 1) {
+      if (parseInt(semester) == 1) {
+      } else {
+        return res
+          .status(403)
+          .send({ message: `Pay for ${maxMessBillSemester + 1} semester` });
+      }
     }
 
     const options = {
@@ -56,7 +59,6 @@ const main = async (req: NextApiRequest, res: NextApiResponse) => {
 
     await instance.orders.create(options, function (err, order) {
       if (err) {
-        console.log(3);
         return err;
       }
 
