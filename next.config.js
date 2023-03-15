@@ -10,7 +10,7 @@ module.exports = {
           },
           {
             key: 'Access-Control-Allow-Credentials',
-            value: true,
+            value: "true",
           },
           {
             key: 'Access-Control-Allow-Headers',
