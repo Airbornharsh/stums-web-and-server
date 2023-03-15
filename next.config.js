@@ -5,15 +5,28 @@ module.exports = {
         source: '/about',
         headers: [
           {
-            key: 'x-custom-header',
-            value: 'my custom header value',
+            key: 'Access-Control-Allow-Origin',
+            value: '*',
           },
           {
-            key: 'x-another-custom-header',
-            value: 'my other custom header value',
+            key: 'Access-Control-Allow-Credentials',
+            value: true,
+          },
+          {
+            key: 'Access-Control-Allow-Headers',
+            value: "*",
+          },
+          {
+            key: 'Access-Control-Allow-Methods',
+            value: "*",
           },
         ],
       },
     ]
   },
 }
+
+// "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+//   "Access-Control-Allow-Credentials": true, // Required for cookies, authorization headers with HTTPS
+//   "Access-Control-Allow-Headers": "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+//   "Access-Control-Allow-Methods": "POST, OPTIONS"
